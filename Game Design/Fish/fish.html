@@ -7,7 +7,7 @@
 function start(){
 sjs.open("target", 800, 500);
 // BackgroundMusic
-var playM = new Audio('Music/infinite_strings.mp3');
+var playM = new Audio('Music/mad_robotss.mp3');
 var toggle = true;
 var musicOn = false;
 sjs.keyDown(SPACE_KEY, function(){
@@ -26,26 +26,6 @@ toggle = true;
 }
 });
 var playM1 = new Audio('Music/mad_robots.mp3');
-var toggle = true;
-var musicOn = false;
-sjs.keyDown(A_KEY, function(){
-if (toggle == true){
-	if(musicOn == false){
-		playM.play();
-		musicOn = true;
-	}else{
-playM1.pause();
-musicOn = false;
-	}
-	toggle = false;
-	setTimeout(function(){
-toggle = true;
-	},1000);
-}
-});
-
-
-
 var background = new sjs.Image("Images/background.png");
 background.setSize(sjs.getWidth(), sjs.getHeight());
 
@@ -122,7 +102,7 @@ enemy.setSize(100,50);
 enemy.noBounds = true;
 enemy.friction = 0;
 enemy.pushLeft(speed);
-enemy.scaleSize(.5 + Math.random() * 1.6);
+enemy.scaleSize(.5 + Math.random() * 1.2);
 enemy.moveTo(sjs.getWidth(), Math.random()*(enemy.getClamp().y));
 }
 }, 1000);

@@ -7,7 +7,7 @@
 function start(){
 sjs.open("target", 800, 500);
 // BackgroundMusic
-var playM = new Audio('Music/mad_robots.mp3');
+var playM = new Audio('Music/infinite_strings.mp3');
 var toggle = true;
 var musicOn = false;
 sjs.keyDown(SPACE_KEY, function(){
@@ -25,6 +25,25 @@ toggle = true;
 	},1000);
 }
 });
+var playM1 = new Audio('Music/mad_robots.mp3');
+var toggle = true;
+var musicOn = false;
+sjs.keyDown(A_KEY, function(){
+if (toggle == true){
+	if(musicOn == false){
+		playM.play();
+		musicOn = true;
+	}else{
+playM1.pause();
+musicOn = false;
+	}
+	toggle = false;
+	setTimeout(function(){
+toggle = true;
+	},1000);
+}
+});
+
 
 
 var background = new sjs.Image("Images/background.png");
@@ -87,23 +106,23 @@ y.destroy();
 setInterval(function(){
 var speed = Math.floor(1 + Math.random()*10)
 if (Math.random() > 0.5){
-var enemy = new sjs.Image("Images/fish_Right.png");
+var enemy = new sjs.Image("Images/fish_right.png");
 enemy.type = "enemy";
 enemy.setSize(100,50);
 enemy.noBounds = true;
 enemy.friction = 0;
 enemy.pushRight(speed);
-enemy.scaleSize(.5 + Math.random() * 1.4);
+enemy.scaleSize(.5 + Math.random() * 1.6);
 enemy.moveTo(-enemy.getWidth(), Math.random() * (enemy.getClamp().y));
 	} else {
 
-	var enemy = new sjs.Image("Images/fish_Left.png");
+	var enemy = new sjs.Image("Images/fish_left.png");
 enemy.type = "enemy";
 enemy.setSize(100,50);
 enemy.noBounds = true;
 enemy.friction = 0;
 enemy.pushLeft(speed);
-enemy.scaleSize(.5 + Math.random() * 1.5);
+enemy.scaleSize(.5 + Math.random() * 1.6);
 enemy.moveTo(sjs.getWidth(), Math.random()*(enemy.getClamp().y));
 }
 }, 1000);
@@ -133,6 +152,7 @@ if (score >= 20){
 		window.location = "gameover.html";
 	}
 	y.destroy();
+
 });
 } //end start
 </script>

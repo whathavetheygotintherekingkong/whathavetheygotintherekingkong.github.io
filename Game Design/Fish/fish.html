@@ -6,6 +6,9 @@
 <script>
 function start(){
 sjs.open("target", 800, 500);
+var background = new sjs.Image("Images/background.png");
+background.type = "background"
+ background.setSize(800,500);
 // BackgroundMusic
 var playM = new Audio('Music/mad_robots.mp3');
 var toggle = true;
@@ -138,6 +141,6 @@ if (score >= 20){
 <body onload="start()">
 <h1> Fish Game! </h1>
 
-<div id="target" style="margin:auto;background:grey;"></div>
+<div id="target" style="margin:auto;background:blue;"></div>
 </body>
 </html>

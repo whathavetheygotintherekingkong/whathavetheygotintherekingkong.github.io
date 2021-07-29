@@ -1,0 +1,160 @@
+<html>
+<head>
+<title> Custom Game </title>
+<script src="https://simplycodingcourses.com/files/simply.js"></script>
+<script>
+function start(){
+sjs.open("target",960,600);
+var background = new sjs.Image("Images/background.png");
+background.setSize(3000,3000);
+//Player Properties
+var player = new sjs.Image("Images/robertwalking_r-0.png");
+player.type = "player";
+player.setSize(204,223);
+player.center();
+player.friction = .45;
+sjs.scrollable(player,background);
+//Player Movement Controls
+
+var l_images = ["Images/robertwalking_l-0.png","Images/robertwalking_l-1.png","Images/robertwalking_l-2.png","Images/robertwalking_l-3.png","Images/robertwalking_l-4.png","Images/robertwalking_l-5.png","Images/robertwalking_l-6.png","Images/robertwalking_l-7.png"];
+
+var r_images = ["Images/robertwalking_r-0.png","Images/robertwalking_r-1.png","Images/robertwalking_r-2.png","Images/robertwalking_r-3.png","Images/robertwalking_r-4.png","Images/robertwalking_r-5.png","Images/robertwalking_r-6.png","Images/robertwalking_r-7.png"];
+var r_facing = true;
+var r_track = 0;
+var l_track = 0;  
+
+sjs.keyDown(D_KEY, function(){
+		r_facing = true;
+	r_track = r_track + 1;
+	player.pushRight(2.5); 
+	player.setImage(r_images[r_track]);
+	if(r_track == 7){
+		r_track = 0;
+	} 
+	if (r_track ==9){
+		r_track = 0;
+	}
+	if(r_track >= 8){
+		player.setImage("Images/robertshooting_fgr.png");
+	} 
+}); //end D key 
+
+sjs.keyDown(A_KEY, function(){
+	
+	r_facing = false;
+	l_track = l_track + 1;
+	player.pushLeft(2.5); 
+	player.setImage(l_images[l_track]);
+	if(l_track == 7){
+		l_track = 0;
+	}
+	if(l_track ==9){
+		l_track =0;
+	} 
+	if(l_track >= 8){
+		player.setImage("Images/robertshooting_fgl.png");
+	} 
+}); //end Left key
+
+sjs.keyDown(W_KEY,function(){
+	
+if(r_facing == true){
+	r_track = r_track + 1;
+	player.pushUp(2.5);
+	player.setImage(r_images[r_track]);
+	if(r_track == 7){
+		r_track = 0;
+
+	}
+	}else{
+		
+	l_track = l_track + 1;
+	player.pushUp(2.5);
+	player.setImage(l_images[l_track]);
+	if(l_track == 7){
+		l_track = 0;
+	}
+
+}
+});//end W key
+sjs.keyDown(S_KEY,function(){
+
+if(r_facing == true){
+	r_track = r_track + 1;
+	player.pushDown(2.5);
+	player.setImage(r_images[r_track]);
+	if(r_track == 7){
+		r_track = 0;
+
+	}
+	}else{
+	
+	l_track = l_track + 1;
+	player.pushDown(2.5);
+	player.setImage(l_images[l_track]);
+	if(l_track == 7){
+		l_track = 0;
+	}
+
+	}
+
+
+});//end S key
+fgCanShoot = true;
+sjs.keyDown(SPACE_KEY,function(){
+		if(fgCanShoot == true){
+	
+		fgCanShoot = false;
+var fgbullet = new sjs.Image("Images/fgbullet_r.png");
+fgbullet.type = "fgbullet";
+fgbullet.setSize(84,48);
+fgbullet.friction = 0;
+fgbullet.noBounds = true;
+if(r_facing == true){
+	player.setImage("Images/robertshooting_fgr.png");
+	fgbullet.moveTo(player.getX()+160,player.getY()+50);
+	fgbullet.pushRight(7.5);
+	setInterval(function(){
+		fgbullet.destroy();
+	},2000);
+	}else{
+		player.setImage("Images/robertshooting_fgl.png");
+		fgbullet.setImage("Images/fgbullet_l.png");
+		fgbullet.moveTo(player.getX()+-75,player.getY()+50);
+		fgbullet.pushLeft(7.5);
+		setInterval(function(){
+		fgbullet.destroy();
+	},2000);
+	}
+setTimeout(function(){
+	fgCanShoot = true;	
+},755);	
+}
+});
+// Enemie Properties
+var compy = new sjs.Image("Images/compywalking_r-0.png");
+compy.type = "compy";
+compy.setSize(90,90);
+compy.friction = 0;
+compy.acceleration = .3;
+compy.noBounds = true;
+// Enemie Movement
+var er_images = ["Images/compywalking_r-0.png","Images/compywalking_r-1.png","Images/compywalking_r-2.png","Images/compywalking_r-3.png","Images/compywalking_r-4.png","Images/compywalking_r-5.png"];
+var el_images = ["Images/compywalking_l-0.png","Images/compywalking_l-1.png","Images/compywalking_l-2.png","Images/compywalking_l-3.png","Images/compywalking_l-4.png","Images/compywalking_l-5.png","Images/compywalking_l-6.png"];
+var er_facing = true;
+var er_track = 0;
+var el_track = 0;
+compy.setImage("Images/compywalking_r-0.png");
+compy.onMouseDown(function(){
+	compy.follow(sjs.mouse);
+
+});
+} //end start
+</script>
+</head>
+<body onload="start()">
+<h3> Robert Muldoon Hunting </h3>
+
+<div id="target" style="margin:auto;background:grey;"></div>
+</body>
+</html>

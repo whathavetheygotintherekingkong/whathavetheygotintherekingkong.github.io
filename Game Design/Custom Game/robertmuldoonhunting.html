@@ -137,18 +137,40 @@ compy.type = "compy";
 compy.setSize(90,90);
 compy.friction = 0;
 compy.acceleration = .3;
-compy.noBounds = true;
 // Enemie Movement
-var er_images = ["Images/compywalking_r-0.png","Images/compywalking_r-1.png","Images/compywalking_r-2.png","Images/compywalking_r-3.png","Images/compywalking_r-4.png","Images/compywalking_r-5.png"];
-var el_images = ["Images/compywalking_l-0.png","Images/compywalking_l-1.png","Images/compywalking_l-2.png","Images/compywalking_l-3.png","Images/compywalking_l-4.png","Images/compywalking_l-5.png","Images/compywalking_l-6.png"];
-var er_facing = true;
-var er_track = 0;
-var el_track = 0;
-compy.setImage("Images/compywalking_r-0.png");
-compy.onMouseDown(function(){
-	compy.follow(sjs.mouse);
+var cr_images = ["Images/compywalking_r-0.png","Images/compywalking_r-1.png","Images/compywalking_r-2.png","Images/compywalking_r-3.png","Images/compywalking_r-4.png","Images/compywalking_r-5.png"];
+var cl_images = ["Images/compywalking_l-0.png","Images/compywalking_l-1.png","Images/compywalking_l-2.png","Images/compywalking_l-3.png","Images/compywalking_l-4.png","Images/compywalking_l-5.png","Images/compywalking_l-6.png"];
+var cr_facing = true;
+var cr_track = 0;
+var cl_track = 0;
+setInterval(function(){
 
-});
+      var dx = player.x - compy.x;
+      var dy = player.y - compy.y;
+      if (dx > 0){
+      	 var cr_facing = true;
+      	 cr_track = cr_track +1;
+compy.setImage(cr_images[r_track]);
+if (cr_track == 5){
+	cr_track = 0;
+}
+      }
+      else{
+      	var cr_facing = false;
+      	      	 cl_track = cl_track +1;
+compy.setImage(cl_images[cl_track]);
+if (cl_track == 6){
+	cl_track = 0;
+}
+
+      }
+      var angle = Math.atan2(dy, dx);
+
+      compy.pushRight(.08*Math.cos(angle));
+      compy.pushDown(.08*Math.sin(angle));
+
+  },1);
+
 } //end start
 </script>
 </head>

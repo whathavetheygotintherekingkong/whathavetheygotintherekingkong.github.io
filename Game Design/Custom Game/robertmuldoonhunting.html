@@ -132,11 +132,11 @@ setTimeout(function(){
 }
 });
 // Enemie Properties
+
 var compy = new sjs.Image("Images/compywalking_r-0.png");
 compy.type = "compy";
 compy.setSize(90,90);
-compy.friction = 0;
-compy.acceleration = .3;
+compy.friction = .01;
 // Enemie Movement
 var cr_images = ["Images/compywalking_r-0.png","Images/compywalking_r-1.png","Images/compywalking_r-2.png","Images/compywalking_r-3.png","Images/compywalking_r-4.png","Images/compywalking_r-5.png"];
 var cl_images = ["Images/compywalking_l-0.png","Images/compywalking_l-1.png","Images/compywalking_l-2.png","Images/compywalking_l-3.png","Images/compywalking_l-4.png","Images/compywalking_l-5.png","Images/compywalking_l-6.png"];
@@ -151,7 +151,7 @@ setInterval(function(){
       	 var cr_facing = true;
       	 cr_track = cr_track +1;
 compy.setImage(cr_images[r_track]);
-if (cr_track == 5){
+if (cr_track == 4){
 	cr_track = 0;
 }
       }
@@ -159,18 +159,36 @@ if (cr_track == 5){
       	var cr_facing = false;
       	      	 cl_track = cl_track +1;
 compy.setImage(cl_images[cl_track]);
-if (cl_track == 6){
+if (cl_track == 5){
 	cl_track = 0;
 }
 
       }
       var angle = Math.atan2(dy, dx);
 
-      compy.pushRight(.08*Math.cos(angle));
-      compy.pushDown(.08*Math.sin(angle));
+      compy.pushRight(.05*Math.cos(angle));
+      compy.pushDown(.05*Math.sin(angle));
 
   },1);
+//helth bar 
+var health = 10;
+var score_txt = new sjs.Text("health:10",21,"red");
+//onHits
+sjs.onHit("compy","fgbullet",function(compy,fgbullet){
+	compy.moveTo(3000,3000);
+	fgbullet.destroy();
+	window.location = "levelonewin.html";
+});
 
+sjs.onHit("compy","player",function(x,y){
+health = health - 2;
+x.moveTo(10000,10000)
+score_txt.setText("health: "+health);
+if (health == 0){
+	window.location = "gameover.html";
+}
+});
+//Music 
 } //end start
 </script>
 </head>
